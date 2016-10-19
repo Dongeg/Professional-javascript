@@ -180,6 +180,15 @@ window.x=1;
 new 运算符 创建实例
 
 
+var 运算符
+```
+(function(){
+    var a=b=1;
+})()
+console.log(b)   //1
+console.log(a)   //ht ReferenceError: a is not defined(…)
+```
+
 
 
 
