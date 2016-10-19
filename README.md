@@ -165,7 +165,7 @@ obj.x;  //undefined
 ```
 var obj={};
 Object.defineProperty(obj,'x',{
-    configurable:false,   //设为false则不可删除
+    configurable:false,   //设为false则不可配置
     value:1
 });
 delete obj.x; //false
@@ -181,16 +181,170 @@ new 运算符 创建实例
 
 
 var 运算符
-```
+```js
 (function(){
     var a=b=1;
 })()
 console.log(b)   //1
 console.log(a)   //ht ReferenceError: a is not defined(…)
 ```
+<h3>try-catch语句</h3>
+```
+    try{
+        throw 'my error';
+    }
+    catch(ex){
+        console.log(ex);
+    }
+    finally{
+        console.log('finally')
+    }
+```
+<h3>函数声明和函数表达式</h3>
+函数声明
+```js
+funcction fd(){
+//do sth
+}
+```
+函数表达式
+```js
+var fe=function(){
+//do sth
+}
+```
+区别：函数声明会被提升至顶部，函数表达式不会
+
+<h3>for ...in...</h3>
+便利结果顺序不定
+
+enumerable为false时不会出现
+
+for in对象属性受原型链影响
 
 
+```
+var obj={x:1,y:2}
+for(p in obj){
+}
+```
+<h3>严格模式</h3>
+进入严格模式
+```
+'use strict'
+```
+严格模式的特性
 
+1.不使用with语句
+
+2.变量必须声明后才能使用
+
+3 arguments
+//一般模式下
+```js
+(function(a){
+    arguments[0]=100;
+    console.log(a);//100 a和arguments相互影响
+})(1)
+
+(function(a){
+    arguments[0]=100;
+    console.log(a);//undefined
+})()
+```
+//严格模式下
+```
+'use strict'
+(function(a){
+  arguments[0]=100;
+  console.log(a);//1
+})(1)
+
+
+(function(a){
+  arguments[0].x=100;
+  console.log(a.x);//100
+})(x:1)
+```
+delete 参数，函数名及不可配置变量会报错 
+```
+(function(){
+  'use strict'
+  delete a;//报错
+})(1)
+```
+```
+var obj={};
+Object.defineProperty(obj,'x',{
+    configurable:false,   //设为false则不可配置
+    value:1
+});
+delete obj.x; //报错
+```
+对象字面量重复属性名报错
+```
+(function(){
+  var obj={x:1,x2};
+  console.log(obj.x)//2
+})()
+```
+
+```
+严格模式下
+(function(){
+'use strict'
+  var obj={x:1,x2};
+  console.log(obj.x)//报错
+})()
+```
+禁止八进制字面量
+```
+(function(){
+  console.log(0123)//83严格模式下会报错
+})()
+
+```
+eval函数变为独立作用域
+
+<h3>对象</h3>
+```
+一个对象有些标签:对对象属性的权限操作 。还有一个原型。如果在对象上找不到属性，就会在原型上查找，在找不到 就沿着原型链 继续往上查找 ，直到原型链末端。还有一个class标签表示对象哪一种类的。还有extensible标签来表示这个对象是否允许继续增加新的属性
+对象构造：
+除了本身被赋予的值之外，对象还有几个隐藏标签：
+proto：对象的对象属性prototype上的赋值，一般是该对象种类的不变属性或方法，例如 new一个猫，猫的颜色和年龄可以作为一般属性，而猫叫，猫吃鱼这种不常变动的属性可以在prototype上赋值，可以节省内存。
+class：对象的种类
+extensible：是否允许该对象继续增加新的属性
+
+另外对象的值(如 x=1)，也有对应的属性或方法，提供一些访问权限的控制
+writable：是否可写
+enumerable：是否能够枚举
+configurable:是否能被删除
+value：值
+get/set：获取/设置属性
+
+```
+```js
+function foo(){}
+foo.prototype.z = 3
+var obj =new foo();
+obj.y = 2;
+obj.x = 1;
+obj.x; // 1
+obj.y; // 2
+obj.z; // 3
+typeof obj.toString; // ‘function'
+'z' in obj; // true
+obj.hasOwnProperty('z'); // false
+
+```
+创建字面量的方法之一
+```
+var obj = Object.create({x : 1});
+obj.x // 1
+typeof obj.toString // "function"
+obj.hasOwnProperty('x');// false
+
+```
 
 
 
