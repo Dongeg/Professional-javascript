@@ -360,8 +360,47 @@ VO按照如下顺序填充：
 函数表达式不会影响VO
 二.代码执行阶段
 ```
+```
+var object = { 
+   name : '张三', 
+   getName : function() { 
+       return function() { 
+           document.write(this.name);}}} 
+object.getName()(); 
+请问:执行以上代码，你会看到什么结果？
+ 正确答案 无结果
+```
+```
+本题的原型是一道经典的闭包思考题。 
+如题"return function(){...}"构成了一个明显的闭包，而根据JS的"链式作用域"结构，父对象里面的所有变量，对子对象都是可见的，但是反过来，就不成立。即父对象"看不到"子对象里面的变量。 
+现在题目中,假设"getName : function(){...}"是父对象， 
+"return function(){...}"就是其子对象，现在子对象需要一个"this.name"，它一定会从父对象"getName()"中寻找，因为父对象里面的变量对它可见，那么请问父对象里面有name吗？很明显，没有。既然没有，this.name怎么取呢？别忘了，有一种变量叫做全局变量，对所有对象都是可见的。因此在这种情况下，"return function(){...}"一定会取全局变量中的name。 
+其实取到这个name很简单。 
+方法一: 
+直接定义全局变量,比如var name = 'blablabla'; 
+显示的是全局变量name; 
 
+方法二: 
+getName : function() { 
+   var that = this;     //加上这句 
+   return function() { 
+       document.write(that.name); 
+   } 
+} 
+显示的是object里面的name 
 
+方法三: 
+getName : function() { 
+      var name2 = this.name;    //或者加上这句 
+      return function() { 
+          document.write(name2); 
+     } 
+} 
+显示的是object里面的name 
+
+方法四:传参 
+getName : function(nm){...}
+```
 
 
 
