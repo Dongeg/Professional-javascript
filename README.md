@@ -360,7 +360,7 @@ VO按照如下顺序填充：
 函数表达式不会影响VO
 二.代码执行阶段
 ```
-```
+```js
 var object = { 
    name : '张三', 
    getName : function() { 
