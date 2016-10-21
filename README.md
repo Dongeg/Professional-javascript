@@ -360,6 +360,7 @@ VO按照如下顺序填充：
 函数表达式不会影响VO
 二.代码执行阶段
 ```
+<h3>闭包</h3>
 ```js
 var object = { 
    name : '张三', 
@@ -401,7 +402,6 @@ getName : function() {
 方法四:传参 
 getName : function(nm){...}
 ```
-
 
 
 
