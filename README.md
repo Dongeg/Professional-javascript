@@ -1,11 +1,14 @@
 <h3>js的数据类型：(6种)</h3>
+
 ```
   原始类型（5）：number string boolean null undefined
   object类型（1）: Function Array Date .....
 ```
+
 <h3>js隐式转换</h3>
 
 example1
+
 ```
 var a='9'+6 //96
 var b='9'-6//3
@@ -25,6 +28,35 @@ null==undefind
 NaN不等于NaN
 [1,2]不等于[1,2]
 ```
+
+example3
+```
+/*
+
+当我们没有重新定义toString与valueOf时，函数的隐式转换会调用默认的toString方法，它会将函数的定义内容作为字符串返回。
+而当我们主动定义了toString/vauleOf方法时，那么隐式转换的返回结果则由我们自己控制了。其中valueOf会比toString后执行
+
+*/
+>function fn() {
+      return 20;
+  }
+<undefined
+>console.log(fn)
+<function fn() {
+      return 20;
+  }
+<undefined
+>fn.toString = function() {
+     return 10;
+ }
+<function () {
+    return 10;
+ }
+>console.log(fn)
+ 10
+<undefined
+```
+
 <h3>js包装对象</h3>
 number string boolean都对应的包装类型
 example
